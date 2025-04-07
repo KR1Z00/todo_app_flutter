@@ -16,3 +16,6 @@ scripts:
     cd todo_app
     flutter test
     
+  start: |
+    cd todo_app
+    flutter run
