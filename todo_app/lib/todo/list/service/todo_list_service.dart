@@ -7,7 +7,7 @@ import '../../repository/todos_repository.dart';
 part 'todo_list_service.g.dart';
 
 /// A service that handles the backend operations for the todo list
-sealed class TodoListService {
+abstract class TodoListService {
   /// Fetches the list of todo list items
   Future<List<TodoListItemModel>> fetchTodoListItems();
 

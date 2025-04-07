@@ -6,7 +6,7 @@ import '../../repository/todos_repository.dart';
 part 'add_todo_service.g.dart';
 
 /// A service that handles the backend operations for adding a todo list item
-sealed class AddTodoService {
+abstract class AddTodoService {
   /// Adds a new Todo list item with a given title and description
   Future<void> addTodoListItem({
     required String title,
