@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:todo_app/add_todo/view/add_todo_page.dart';
-import 'package:todo_app/todo_list/view/todo_list_page.dart';
+import 'package:todo_app/todo/add/view/add_todo_page.dart';
+import 'package:todo_app/todo/list/view/todo_list_page.dart';
 
 enum AppRoute {
   root('/'),
