@@ -1,0 +1,5 @@
+name: sample_todo_app
+
+packages:
+  - todo_app/
+  - ui_elements/

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/todo_app/melos_todo_app.iml" filepath="$PROJECT_DIR$/todo_app/melos_todo_app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ui_elements/melos_ui_elements.iml" filepath="$PROJECT_DIR$/ui_elements/melos_ui_elements.iml" />
+      <module fileurl="file://$PROJECT_DIR$/melos_sample_todo_app.iml" filepath="$PROJECT_DIR$/melos_sample_todo_app.iml" />
+    </modules>
+  </component>
+</project>
