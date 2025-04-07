@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:todo_app/todo/model/todo_list_item_model.dart';
 import 'package:ui_elements/constants/ui_constants.dart';
 
 import 'package:ui_elements/cm_todo_list_item.dart';
@@ -17,7 +18,7 @@ class TodoListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final todoItems = ref.watch(todoListViewModelProvider);
+    final todoListState = ref.watch(todoListViewModelProvider);
     return Scaffold(
       backgroundColor: context.colorScheme().surface,
       body: CMNavigationScrollView(
@@ -29,10 +30,18 @@ class TodoListPage extends ConsumerWidget {
             horizontal: horizontalScreenMargin,
             vertical: 48,
           ),
-          sliver:
-              todoItems.isEmpty
-                  ? SliverToBoxAdapter(child: _EmptyTodosContent())
-                  : _TodoListContent(),
+          sliver: todoListState.when(
+            data:
+                (todoList) =>
+                    todoList.isEmpty
+                        ? _EmptyTodosContent()
+                        : _TodoListContent(todoList: todoList),
+            error: (_, __) => SliverFillRemaining(),
+            loading:
+                () => SliverFillRemaining(
+                  child: Center(child: CircularProgressIndicator()),
+                ),
+          ),
         ),
       ),
     );
@@ -40,18 +49,24 @@ class TodoListPage extends ConsumerWidget {
 }
 
 class _TodoListContent extends ConsumerWidget {
-  const _TodoListContent();
+  final List<TodoListItemModel> _todoList;
+
+  const _TodoListContent({required List<TodoListItemModel> todoList})
+    : _todoList = todoList;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final todoItems = ref.watch(todoListViewModelProvider);
     return SliverList.separated(
-      itemCount: todoItems.length,
+      itemCount: _todoList.length,
       itemBuilder:
           (context, index) => CMTodoListItem(
-            title: todoItems[index].title,
-            description: todoItems[index].description,
-            isChecked: todoItems[index].isChecked,
+            title: _todoList[index].title,
+            description: _todoList[index].description,
+            isChecked: _todoList[index].isChecked,
+            didTap:
+                () => ref
+                    .read(todoListViewModelProvider.notifier)
+                    .didTapItem(id: _todoList[index].id),
           ),
       separatorBuilder: (context, index) => SizedBox(height: 16),
     );
@@ -63,16 +78,18 @@ class _EmptyTodosContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          tr(LocaleKeys.emptyTodosTitle),
-          style: context.textTheme().headlineSmall,
-        ),
-        Gap(8),
-        Text(tr(LocaleKeys.emptyTodosGuidance)),
-      ],
+    return SliverToBoxAdapter(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            tr(LocaleKeys.emptyTodosTitle),
+            style: context.textTheme().headlineSmall,
+          ),
+          Gap(8),
+          Text(tr(LocaleKeys.emptyTodosGuidance)),
+        ],
+      ),
     );
   }
 }
