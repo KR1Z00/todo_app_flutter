@@ -3,3 +3,19 @@ name: sample_todo_app
 packages:
   - todo_app/
   - ui_elements/
+
+scripts:
+  setup: |
+    cd todo_app
+    flutter pub get
+    dart run build_runner build --delete-conflicting-outputs
+    dart run easy_localization:generate -S assets/translations -f json -O lib/app/localization/generated -o locale_json.g.dart
+    dart run easy_localization:generate -S assets/translations -f keys -O lib/app/localization/generated -o locale_keys.g.dart
+
+  test: |
+    cd todo_app
+    flutter test
+    
+  start: |
+    cd todo_app
+    flutter run

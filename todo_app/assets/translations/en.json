@@ -1,0 +1,11 @@
+{
+    "appTitle": "CheckMate",
+    "yourTodos": "Your Todos",
+    "addTodo": "Add Todo",
+    "emptyTodosTitle": "You have no Todos",
+    "emptyTodosGuidance": "To get started, select the 'Add Todo' button to add your first item",
+    "cancel": "Cancel",
+    "save": "Save",
+    "todoTitle": "Title",
+    "todoDescription": "Description"
+}
