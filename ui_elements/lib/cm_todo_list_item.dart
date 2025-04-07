@@ -62,7 +62,7 @@ class _CMTodoListItemState extends State<CMTodoListItem> {
                           widget.isChecked
                               ? context.colorScheme().primary
                               : context.colorScheme().onSurface,
-                      width: widget.isChecked ? 3 : 2,
+                      width: widget.isChecked ? 3 : 1,
                     ),
                     borderRadius: BorderRadius.circular(24),
                   ),
