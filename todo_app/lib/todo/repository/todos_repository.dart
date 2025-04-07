@@ -27,10 +27,15 @@ abstract class TodosRepository {
 /// A mock [TodosRepository] that simply stores the Todo list in memory
 class MockTodosRepository implements TodosRepository {
   final Map<String, TodoListItemModel> _todoList = {};
+  bool _didInitialFetch = false;
 
   @override
   Future<List<TodoListItemModel>> fetchTodoListItems() async {
-    await Future.delayed(Duration(milliseconds: _randomMockDelayMs));
+    if (!_didInitialFetch) {
+      await Future.delayed(Duration(milliseconds: _randomMockDelayMs));
+    }
+    _didInitialFetch = true;
+
     return (_todoList.entries.toList()
           ..sort((entryA, entryB) => entryA.key.compareTo(entryB.key)))
         .map((entry) => entry.value)
@@ -74,7 +79,7 @@ class MockTodosRepository implements TodosRepository {
   int get _randomMockDelayMs => Random().nextInt(_maxRandomMockDelayMs);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 TodosRepository todosRepositoryProvider(Ref ref) {
   return MockTodosRepository();
 }

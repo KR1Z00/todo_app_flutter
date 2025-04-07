@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class CMSecondaryButton extends StatelessWidget {
   static const double preferredHeight = 48;
 
-  final Icon? icon;
+  final Widget? icon;
   final Widget label;
-  final void Function() onPressed;
+  final void Function()? onPressed;
 
   const CMSecondaryButton({
     super.key,
